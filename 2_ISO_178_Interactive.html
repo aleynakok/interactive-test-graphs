@@ -161,6 +161,9 @@ function tabSwitch(id, mode) {
                     </tbody>
                 </table>
             </div>
+            <div style="text-align: center; margin-top: 16px;">
+                <a href="https://aleynakok.github.io/interactive-test-graphs/2_ISO_178_Interactive.html" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 11px 22px; background: #0284c7; color: #ffffff; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: 700;">↗ İnteraktif Grafiği Aç</a>
+            </div>
         </div>
     </div>
 
@@ -172,10 +175,10 @@ function tabSwitch(id, mode) {
         const fVals = [0.0, 3.5, 7.2, 11.2, 17.5, 24.3, 32.3, 40.8, 49.8, 58.4, 66.2, 72.5, 77.1, 80.1, 81.9, 82.8, 83.2, 83.4];
 
         const hoverTexts = xVals.map((x, i) => 
-            '<span style="font-size:11px; font-weight:700; color:#0284c7; letter-spacing:0.5px;">VERİ NOKTASI</span><br>' +
-            '<span style="color:#64748b; font-size:12px;">Gerilme : </span><b style="color:#0f172a; font-size:12px;">' + yVals[i] + ' MPa</b><br>' +
-            '<span style="color:#64748b; font-size:12px;">Uzama  : </span><b style="color:#0f172a; font-size:12px;">' + x + ' %</b><br>' +
-            '<span style="color:#64748b; font-size:12px;">Kuvvet  : </span><b style="color:#059669; font-size:12px;">' + fVals[i] + ' N</b>'
+            '<span style="font-size:11px; font-weight:700; color:#0284c7; letter-spacing:0.5px;">DATA POINT</span><br>' +
+            '<span style="color:#64748b; font-size:12px;">Stress  : </span><b style="color:#0f172a; font-size:12px;">' + yVals[i] + ' MPa</b><br>' +
+            '<span style="color:#64748b; font-size:12px;">Strain  : </span><b style="color:#0f172a; font-size:12px;">' + x + ' %</b><br>' +
+            '<span style="color:#64748b; font-size:12px;">Force  : </span><b style="color:#059669; font-size:12px;">' + fVals[i] + ' N</b>'
         );
 
         const trace = {
