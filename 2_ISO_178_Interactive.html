@@ -1,0 +1,226 @@
+
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script>
+function tabSwitch(id, mode) {
+    const boxD = document.getElementById('box_d_' + id);
+    const boxP = document.getElementById('box_p_' + id);
+    const btnD = document.getElementById('btn_d_' + id);
+    const btnP = document.getElementById('btn_p_' + id);
+    
+    if (mode === 'diag') {
+        boxD.style.display = 'block';
+        boxP.style.display = 'none';
+        btnD.style.background = '#0284c7'; btnD.style.color = '#ffffff';
+        btnP.style.background = 'transparent'; btnP.style.color = '#64748b';
+        Plotly.Plots.resize('plot_' + id);
+    } else {
+        boxD.style.display = 'none';
+        boxP.style.display = 'block';
+        btnP.style.background = '#0284c7'; btnP.style.color = '#ffffff';
+        btnD.style.background = 'transparent'; btnD.style.color = '#64748b';
+    }
+}
+</script>
+
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 780px; margin: 25px auto; background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.06); overflow: hidden;">
+        
+        <div style="padding: 22px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <div style="font-size: 16px; font-weight: 800; color: #0f172a;">Three Point Bending</div>
+                <span style="background: #f1f5f9; color: #0284c7; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">ISO 178</span>
+            </div>
+
+            <!-- KPI KARTLARI -->
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px;">
+                
+        <div style="flex: 1; min-width: 100px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; text-align: center;">
+            <div style="font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase;">Fmax</div>
+            <div style="font-size: 15px; font-weight: 800; color: #0f172a; margin-top: 2px;">83.44 <span style="font-size: 10px; color: #64748b;">N</span></div>
+        </div>
+        
+        <div style="flex: 1; min-width: 100px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; text-align: center;">
+            <div style="font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase;">Max. Stress</div>
+            <div style="font-size: 15px; font-weight: 800; color: #0f172a; margin-top: 2px;">40.24 <span style="font-size: 10px; color: #64748b;">MPa</span></div>
+        </div>
+        
+        <div style="flex: 1; min-width: 100px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; text-align: center;">
+            <div style="font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase;">Break Strain</div>
+            <div style="font-size: 15px; font-weight: 800; color: #0f172a; margin-top: 2px;">14.07 <span style="font-size: 10px; color: #64748b;">%</span></div>
+        </div>
+        
+        <div style="flex: 1; min-width: 100px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; text-align: center;">
+            <div style="font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase;">E-Modulus</div>
+            <div style="font-size: 15px; font-weight: 800; color: #0f172a; margin-top: 2px;">1231.20 <span style="font-size: 10px; color: #64748b;">MPa</span></div>
+        </div>
+        
+            </div>
+
+            <!-- BUTONLAR -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid #f1f5f9; padding-bottom: 10px;">
+                <div style="background: #f1f5f9; padding: 4px; border-radius: 10px; display: inline-flex; gap: 4px;">
+                    <button id="btn_d_bending" onclick="tabSwitch('bending', 'diag')" 
+                            style="padding: 6px 20px; font-size: 13px; font-weight: 700; border: none; border-radius: 7px; cursor: pointer; background: #0284c7; color: #ffffff; box-shadow: 0 2px 4px rgba(2, 132, 199, 0.25);">
+                            Diagram
+                    </button>
+                    <button id="btn_p_bending" onclick="tabSwitch('bending', 'pts')" 
+                            style="padding: 6px 20px; font-size: 13px; font-weight: 700; border: none; border-radius: 7px; cursor: pointer; background: transparent; color: #64748b;">
+                            Points
+                    </button>
+                </div>
+            </div>
+
+            <!-- GÖRÜNÜM 1: GRAFİK -->
+            <div id="box_d_bending" style="display: block; width: 100%;">
+                <div id="plot_bending" style="width: 100%; height: 420px;"></div>
+            </div>
+
+            <!-- GÖRÜNÜM 2: TABLO -->
+            <div id="box_p_bending" style="display: none; max-height: 420px; overflow-y: auto; border: 1px solid #e2e8f0; border-radius: 10px;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+                    <thead style="position: sticky; top: 0; background: #0f172a; color: #ffffff; z-index: 2;">
+                        <tr>
+                            <th style="padding: 10px 14px;">Strain [%]</th>
+                            <th style="padding: 10px 14px;">Stress [MPa]</th>
+                            <th style="padding: 10px 14px;">Force [N]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">0.00 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">0.00 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">0.0 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">0.12 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">1.71 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">3.5 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">0.25 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">3.47 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">7.2 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">0.40 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">5.41 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">11.2 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">0.65 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">8.42 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">17.5 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">0.95 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">11.70 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">24.3 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">1.35 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">15.56 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">32.3 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">1.85 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">19.67 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">40.8 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">2.50 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">24.02 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">49.8 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">3.30 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">28.16 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">58.4 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">4.30 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">31.91 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">66.2 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">5.50 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">34.95 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">72.5 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">6.90 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">37.17 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">77.1 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">8.50 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">38.65 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">80.1 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">10.20 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">39.51 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">81.9 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">11.80 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">39.93 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">82.8 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">13.00 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">40.12 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">83.2 N</td>
+        </tr><tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 8px 14px; font-weight: 600; color: #0284c7;">14.07 %</td>
+            <td style="padding: 8px 14px; font-weight: 600; color: #334155;">40.22 MPa</td>
+            <td style="padding: 8px 14px; font-weight: 500; color: #64748b;">83.4 N</td>
+        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- PLOTLY ÇİZİMİ -->
+    <script>
+    (function() {
+        const xVals = [0.0, 0.12, 0.25, 0.4, 0.65, 0.95, 1.35, 1.85, 2.5, 3.3, 4.3, 5.5, 6.9, 8.5, 10.2, 11.8, 13.0, 14.07];
+        const yVals = [0.0, 1.71, 3.47, 5.41, 8.42, 11.7, 15.56, 19.67, 24.02, 28.16, 31.91, 34.95, 37.17, 38.65, 39.51, 39.93, 40.12, 40.22];
+        const fVals = [0.0, 3.5, 7.2, 11.2, 17.5, 24.3, 32.3, 40.8, 49.8, 58.4, 66.2, 72.5, 77.1, 80.1, 81.9, 82.8, 83.2, 83.4];
+
+        const hoverTexts = xVals.map((x, i) => 
+            '<span style="font-size:11px; font-weight:700; color:#0284c7; letter-spacing:0.5px;">VERİ NOKTASI</span><br>' +
+            '<span style="color:#64748b; font-size:12px;">Gerilme : </span><b style="color:#0f172a; font-size:12px;">' + yVals[i] + ' MPa</b><br>' +
+            '<span style="color:#64748b; font-size:12px;">Uzama  : </span><b style="color:#0f172a; font-size:12px;">' + x + ' %</b><br>' +
+            '<span style="color:#64748b; font-size:12px;">Kuvvet  : </span><b style="color:#059669; font-size:12px;">' + fVals[i] + ' N</b>'
+        );
+
+        const trace = {
+            x: xVals,
+            y: yVals,
+            mode: 'lines+markers',
+            line: { color: '#1d4ed8', width: 2.5, shape: 'spline' },
+            marker: {
+                size: 8,
+                color: '#1d4ed8',
+                line: { color: '#ffffff', width: 2 }
+            },
+            hoverinfo: 'text',
+            hovertext: hoverTexts,
+            name: '23 °C'
+        };
+
+        const layout = {
+            margin: { l: 50, r: 25, t: 25, b: 45 },
+            plot_bgcolor: '#ffffff',
+            paper_bgcolor: '#ffffff',
+            xaxis: {
+                title: { text: 'Strain (%)', font: { size: 12, color: '#334155' } },
+                showgrid: true,
+                gridcolor: '#f1f5f9',
+                zeroline: true,
+                zerolinecolor: '#cbd5e1'
+            },
+            yaxis: {
+                title: { text: 'Stress (MPa)', font: { size: 12, color: '#334155' } },
+                showgrid: true,
+                gridcolor: '#f1f5f9',
+                zeroline: true,
+                zerolinecolor: '#cbd5e1'
+            },
+            hoverlabel: {
+                bgcolor: '#ffffff',
+                bordercolor: '#0284c7',
+                font: { color: '#0f172a', family: '-apple-system, sans-serif' },
+                align: 'left'
+            },
+            showlegend: false
+        };
+
+        Plotly.newPlot('plot_bending', [trace], layout, { responsive: true, displayModeBar: false });
+    })();
+    </script>
+    
