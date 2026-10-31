@@ -1,0 +1,83 @@
+
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+<script>
+function tabSwitch(id, mode) {
+    const boxD = document.getElementById('box_d_' + id);
+    const boxP = document.getElementById('box_p_' + id);
+    const btnD = document.getElementById('btn_d_' + id);
+    const btnP = document.getElementById('btn_p_' + id);
+    
+    if (mode === 'diag') {
+        boxD.style.display = 'block';
+        boxP.style.display = 'none';
+        btnD.style.background = '#0284c7'; btnD.style.color = '#ffffff';
+        btnP.style.background = 'transparent'; btnP.style.color = '#64748b';
+        Plotly.Plots.resize('plot_' + id);
+    } else {
+        boxD.style.display = 'none';
+        boxP.style.display = 'block';
+        btnP.style.background = '#0284c7'; btnP.style.color = '#ffffff';
+        btnD.style.background = 'transparent'; btnD.style.color = '#64748b';
+    }
+}
+</script>
+
+    <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 780px; margin: 25px auto; background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.06); overflow: hidden;">
+        <div style="padding: 22px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <div style="font-size: 16px; font-weight: 800; color: #0f172a;">Izod Impact Test</div>
+                <span style="background: #f1f5f9; color: #0284c7; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px; border: 1px solid #e2e8f0;">ISO 180</span>
+            </div>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 18px;">
+        <div style="flex: 1; min-width: 100px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; text-align: center;">
+            <div style="font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase;">Absorbed Energy</div>
+            <div style="font-size: 15px; font-weight: 800; color: #0f172a; margin-top: 2px;">0.08 <span style="font-size: 10px; color: #64748b;">J</span></div>
+        </div>
+        
+        <div style="flex: 1; min-width: 100px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; text-align: center;">
+            <div style="font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase;">Impact Value</div>
+            <div style="font-size: 15px; font-weight: 800; color: #0f172a; margin-top: 2px;">20.53 <span style="font-size: 10px; color: #64748b;">J/m</span></div>
+        </div>
+        
+        <div style="flex: 1; min-width: 100px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; text-align: center;">
+            <div style="font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase;">Resilience</div>
+            <div style="font-size: 15px; font-weight: 800; color: #0f172a; margin-top: 2px;">2.12 <span style="font-size: 10px; color: #64748b;">kJ/m²</span></div>
+        </div>
+        </div>
+            <div id="plot_izod" style="width: 100%; height: 380px;"></div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        const trace = {
+            x: ['Absorbed Energy', 'Impact Value', 'Resilience'],
+            y: [0.08, 20.53, 2.12],
+            type: 'bar',
+            width: 0.38,
+            marker: {
+                color: ['#0284c7', '#10b981', '#f59e0b'],
+                line: { color: '#e2e8f0', width: 1.5 }
+            },
+            hoverinfo: 'text',
+            hovertext: [
+                '<span style="color:#0284c7; font-weight:700;">Absorbed Energy</span><br>Değer: <b style="color:#0f172a;">0.08 J</b>',
+                '<span style="color:#059669; font-weight:700;">Impact Value</span><br>Değer: <b style="color:#0f172a;">20.53 J/m</b>',
+                '<span style="color:#d97706; font-weight:700;">Resilience</span><br>Değer: <b style="color:#0f172a;">2.12 kJ/m²</b>'
+            ]
+        };
+        const layout = {
+            margin: { l: 45, r: 25, t: 25, b: 45 },
+            plot_bgcolor: '#ffffff',
+            paper_bgcolor: '#ffffff',
+            yaxis: { title: 'Value', gridcolor: '#f1f5f9' },
+            hoverlabel: {
+                bgcolor: '#ffffff',
+                bordercolor: '#0284c7',
+                font: { color: '#0f172a', family: '-apple-system, sans-serif' }
+            }
+        };
+        Plotly.newPlot('plot_izod', [trace], layout, { responsive: true, displayModeBar: false });
+    })();
+    </script>
+    
